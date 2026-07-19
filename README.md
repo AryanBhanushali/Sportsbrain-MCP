@@ -120,8 +120,8 @@ docker compose up redis -d
 6. Load data into SQLite:
 
 ```bash
-python scripts/load_data.py          # FBref + Transfermarkt (fast)
-python scripts/load_data.py --all    # + Statsbomb events (~15 min)
+python scripts/load_data.py
+python scripts/load_data.py --all
 ```
 
 7. Pull the LLM:
@@ -134,7 +134,7 @@ ollama pull qwen3:8b
 
 ```bash
 python -m src.agent.graph
-# Scout > Find me PL forwards under 25 with 10+ goals and check their valuations
+# Example: Scout > Find me PL forwards under 25 with 10+ goals and check their valuations
 ```
 
 ### Running the API
