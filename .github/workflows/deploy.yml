@@ -1,0 +1,2 @@
+# GitHub Actions CI/CD pipeline — Week 7
+# Build → Push to AWS ECR → Deploy to EKS

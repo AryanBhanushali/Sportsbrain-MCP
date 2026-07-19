@@ -1,0 +1,2 @@
+# Kubernetes ConfigMap — Week 7
+# Non-secret config: OLLAMA_BASE_URL, REDIS_URL, etc.

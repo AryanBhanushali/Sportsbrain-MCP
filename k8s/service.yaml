@@ -1,0 +1,2 @@
+# Kubernetes service manifest — Week 7
+# LoadBalancer for app, ClusterIP for Redis
