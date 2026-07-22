@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SportsBrain — Scouting desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f1f3ec; /* grass-touched off-white */
+        --paper-2: #fbfcf9; /* raised surface */
+        --pitch: #0e5c3a; /* primary brand green */
+        --pitch-dark: #0a3d28; /* header / deep pitch */
+        --ink: #17201b; /* green-black text */
+        --slate: #65706a; /* dim text */
+        --chalk: #e4a93c; /* floodlight amber accent */
+        --line: #d6dbcf; /* hairline borders */
+        --line-soft: #e4e8dd;
+        --danger: #b23a2e; /* card red, used only for errors */
+        --display: "Archivo", system-ui, sans-serif;
+        --body: "IBM Plex Sans", system-ui, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+
+      /* ── Top bar ─────────────────────────────────────── */
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 0.55rem;
+      }
+      .brand .mark {
+        font-family: var(--display);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        font-size: 1.15rem;
+        color: var(--pitch-dark);
+        text-transform: uppercase;
+      }
+      .brand .sub {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--slate);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--slate);
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--line);
+        transition: background 0.3s;
+      }
+      .dot.online {
+        background: var(--pitch);
+        box-shadow: 0 0 0 3px rgba(14, 92, 58, 0.14);
+      }
+      .dot.offline {
+        background: var(--danger);
+        box-shadow: 0 0 0 3px rgba(178, 58, 46, 0.14);
+      }
+
+      /* ── Layout ──────────────────────────────────────── */
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 5rem;
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--pitch);
+        margin-bottom: 0.85rem;
+      }
+      h1 {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: clamp(2.1rem, 6vw, 3.1rem);
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        margin-bottom: 0.7rem;
+      }
+      .lede {
+        font-size: 1.05rem;
+        color: var(--slate);
+        max-width: 34em;
+        margin-bottom: 2rem;
+      }
+
+      /* ── Ask box ─────────────────────────────────────── */
+      .ask {
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 0.5rem 0.5rem 0.5rem 1.1rem;
+        display: flex;
+        align-items: flex-end;
+        gap: 0.5rem;
+        box-shadow:
+          0 1px 0 rgba(23, 32, 27, 0.03),
+          0 8px 24px -18px rgba(10, 61, 40, 0.5);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .ask:focus-within {
+        border-color: var(--pitch);
+        box-shadow: 0 0 0 3px rgba(14, 92, 58, 0.12);
+      }
+      #q {
+        flex: 1;
+        border: none;
+        background: transparent;
+        resize: none;
+        font-family: var(--body);
+        font-size: 1rem;
+        color: var(--ink);
+        line-height: 1.5;
+        padding: 0.7rem 0;
+        max-height: 180px;
+      }
+      #q:focus {
+        outline: none;
+      }
+      #q::placeholder {
+        color: #9aa39c;
+      }
+      .send {
+        flex: none;
+        border: none;
+        cursor: pointer;
+        background: var(--pitch);
+        color: #fff;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 0.92rem;
+        letter-spacing: 0.01em;
+        padding: 0.7rem 1.15rem;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition:
+          background 0.18s,
+          transform 0.05s;
+      }
+      .send:hover {
+        background: var(--pitch-dark);
+      }
+      .send:active {
+        transform: translateY(1px);
+      }
+      .send:disabled {
+        background: #a9b4ac;
+        cursor: not-allowed;
+      }
+      .send svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .note {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--slate);
+        margin: 0.7rem 0.2rem 0;
+      }
+
+      /* ── Example briefs ──────────────────────────────── */
+      .briefs {
+        margin-top: 2rem;
+      }
+      .briefs .label {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 0.7rem;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+      .chip {
+        border: 1px solid var(--line);
+        background: var(--paper-2);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 0.86rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 999px;
+        cursor: pointer;
+        transition:
+          border-color 0.18s,
+          background 0.18s,
+          color 0.18s;
+      }
+      .chip:hover {
+        border-color: var(--pitch);
+        color: var(--pitch);
+      }
+      .chip:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* ── Report region ───────────────────────────────── */
+      .region {
+        margin-top: 2.75rem;
+      }
+
+      .empty {
+        border: 1.5px dashed var(--line);
+        border-radius: 14px;
+        padding: 2.4rem 1.5rem;
+        text-align: center;
+        color: var(--slate);
+        font-size: 0.95rem;
+      }
+      .empty .icon {
+        width: 34px;
+        height: 34px;
+        margin: 0 auto 0.8rem;
+        border-radius: 7px;
+        border: 1.5px solid var(--line);
+        position: relative;
+      }
+      .empty .icon::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 6px;
+        bottom: 6px;
+        width: 1.5px;
+        background: var(--line);
+        transform: translateX(-0.75px);
+      }
+      .empty .icon::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 11px;
+        height: 11px;
+        border: 1.5px solid var(--line);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* Report card — the signature element */
+      .report {
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px -28px rgba(10, 61, 40, 0.55);
+        animation: rise 0.4s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .report.error {
+        border-color: var(--danger);
+      }
+      .rhead {
+        background: var(--pitch-dark);
+        color: #eaf2ec;
+        padding: 0.9rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background-image: repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.05) 0 1px,
+          transparent 1px 46px
+        );
+      }
+      .report.error .rhead {
+        background: var(--danger);
+      }
+      .rhead .title {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .rhead .meta {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: rgba(234, 242, 236, 0.72);
+        white-space: nowrap;
+      }
+      .rbrief {
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid var(--line-soft);
+        font-size: 0.9rem;
+        color: var(--slate);
+      }
+      .rbrief b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .rbody {
+        padding: 1.25rem 1.35rem 1.5rem;
+        font-size: 1rem;
+        color: var(--ink);
+      }
+      .rbody p {
+        margin: 0 0 0.8rem;
+      }
+      .rbody p:last-child {
+        margin-bottom: 0;
+      }
+      .rbody ul {
+        list-style: none;
+        margin: 0.3rem 0 0.9rem;
+        padding: 0;
+      }
+      .rbody li {
+        position: relative;
+        padding-left: 1.3rem;
+        margin: 0.35rem 0;
+      }
+      .rbody li::before {
+        content: "";
+        position: absolute;
+        left: 0.15rem;
+        top: 0.62em;
+        width: 6px;
+        height: 6px;
+        background: var(--chalk);
+        border-radius: 1px;
+        transform: rotate(45deg);
+      }
+      .rbody strong {
+        font-weight: 600;
+      }
+      .rbody .num {
+        font-family: var(--mono);
+      }
+
+      /* Working sequence — the wait, narrated */
+      .working {
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 1.5rem 1.35rem;
+      }
+      .working .wtop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.1rem;
+      }
+      .working .wtitle {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--pitch-dark);
+      }
+      .working .timer {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--slate);
+      }
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-size: 0.92rem;
+        color: #9aa39c;
+        transition: color 0.3s;
+      }
+      .step .tick {
+        width: 16px;
+        height: 16px;
+        flex: none;
+        border-radius: 50%;
+        border: 1.5px solid var(--line);
+        position: relative;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .step.active {
+        color: var(--ink);
+      }
+      .step.active .tick {
+        border-color: var(--pitch);
+      }
+      .step.active .tick::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        background: var(--pitch);
+        animation: pulse 1.1s ease-in-out infinite;
+      }
+      .step.done {
+        color: var(--slate);
+      }
+      .step.done .tick {
+        border-color: var(--pitch);
+        background: var(--pitch);
+      }
+      .step.done .tick::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 4px;
+        height: 8px;
+        border: solid #fff;
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.7);
+        }
+      }
+      .wnote {
+        margin-top: 1.15rem;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--slate);
+      }
+
+      footer {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+        color: var(--slate);
+        font-size: 0.78rem;
+        font-family: var(--mono);
+      }
+      footer a {
+        color: var(--pitch);
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 560px) {
+        .wrap {
+          padding: 2.2rem 1.1rem 4rem;
+        }
+        .ask {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 1rem;
+        }
+        .send {
+          justify-content: center;
+          padding: 0.75rem;
+        }
+        .rhead {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.35rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <div class="brand">
+        <span class="mark">SportsBrain</span>
+        <span class="sub">Scouting desk</span>
+      </div>
+      <div class="status" id="status">
+        <span class="dot" id="dot"></span>
+        <span id="statusText">Checking…</span>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <div class="eyebrow">Player recruitment · Big 5 leagues</div>
+      <h1>Ask the scouting desk</h1>
+      <p class="lede">
+        Plain-English questions across player stats, market values, and match
+        events — cross-referenced and returned as a single scouting report.
+      </p>
+
+      <div class="ask">
+        <textarea
+          id="q"
+          rows="1"
+          placeholder="e.g. Find me Premier League forwards under 25 with 10+ goals and check their valuations"
+        ></textarea>
+        <button class="send" id="send">
+          Scout
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+      <p class="note">
+        Runs on a local model — a report takes about 20–40 seconds.
+      </p>
+
+      <div class="briefs">
+        <div class="label">Try a brief</div>
+        <div class="chips" id="chips">
+          <button class="chip">
+            Who are the top scorers in the Premier League this season?
+          </button>
+          <button class="chip">
+            La Liga forwards under 23 with 5+ goals and their market value
+          </button>
+          <button class="chip">Compare Haaland and Igor Thiago</button>
+          <button class="chip">
+            Which Bundesliga defenders have the most interceptions?
+          </button>
+        </div>
+      </div>
+
+      <section class="region" id="region">
+        <div class="empty" id="empty">
+          <div class="icon"></div>
+          Your scouting report will appear here.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      SportsBrain · MCP-powered scouting agent · player stats (FBref) ·
+      valuations (Transfermarkt) · match events (Statsbomb)
+    </footer>
+
+    <script>
+      const API = ""; // same origin
+      const $ = (s) => document.querySelector(s);
+      const qEl = $("#q"),
+        sendEl = $("#send"),
+        region = $("#region"),
+        chips = $("#chips");
+
+      const STEPS = [
+        "Reading the brief",
+        "Searching player stats",
+        "Pulling market valuations",
+        "Cross-referencing match events",
+        "Writing the report",
+      ];
+
+      /* ── Health status ─────────────────────────────── */
+      async function checkHealth() {
+        const dot = $("#dot"),
+          txt = $("#statusText");
+        try {
+          const r = await fetch(API + "/health");
+          const d = await r.json();
+          if (d.status === "ok") {
+            dot.className = "dot online";
+            txt.textContent = "API online";
+          } else throw new Error();
+        } catch (e) {
+          dot.className = "dot offline";
+          txt.textContent = "API offline";
+        }
+      }
+
+      /* ── Textarea autosize ─────────────────────────── */
+      function autosize() {
+        qEl.style.height = "auto";
+        qEl.style.height = Math.min(qEl.scrollHeight, 180) + "px";
+      }
+      qEl.addEventListener("input", autosize);
+
+      /* ── Escaping + light formatting ───────────────── */
+      function esc(s) {
+        return s
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function inline(s) {
+        return esc(s)
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(
+            /(?<![\w.])(\d[\d.,]*)(?![\w])/g,
+            '<span class="num">$1</span>',
+          );
+      }
+      function renderAnswer(text) {
+        const lines = text.split(/\r?\n/);
+        let html = "",
+          inList = false;
+        const closeList = () => {
+          if (inList) {
+            html += "</ul>";
+            inList = false;
+          }
+        };
+        for (let raw of lines) {
+          const line = raw.trim();
+          if (!line) {
+            closeList();
+            continue;
+          }
+          const m = line.match(/^[-*•]\s+(.*)$/);
+          if (m) {
+            if (!inList) {
+              html += "<ul>";
+              inList = true;
+            }
+            html += "<li>" + inline(m[1]) + "</li>";
+          } else {
+            closeList();
+            html += "<p>" + inline(line) + "</p>";
+          }
+        }
+        closeList();
+        return html || "<p>" + inline(text) + "</p>";
+      }
+
+      /* ── Working sequence ──────────────────────────── */
+      let workTimer = null,
+        stepTimer = null;
+      function showWorking() {
+        const stepHtml = STEPS.map(
+          (s, i) =>
+            `<div class="step" data-i="${i}"><span class="tick"></span><span>${s}</span></div>`,
+        ).join("");
+        region.innerHTML = `
+    <div class="working">
+      <div class="wtop">
+        <span class="wtitle">Compiling report</span>
+        <span class="timer" id="timer">0.0s</span>
+      </div>
+      <div class="steps">${stepHtml}</div>
+      <div class="wnote">The agent decides which data sources to call — this runs entirely on your machine.</div>
+    </div>`;
+
+        const start = performance.now();
+        const timerEl = $("#timer");
+        workTimer = setInterval(() => {
+          timerEl.textContent =
+            ((performance.now() - start) / 1000).toFixed(1) + "s";
+        }, 100);
+
+        const stepEls = [...document.querySelectorAll(".step")];
+        let cur = 0;
+        const advance = () => {
+          if (cur > 0) stepEls[cur - 1].className = "step done";
+          if (cur < stepEls.length) stepEls[cur].className = "step active";
+          cur++;
+        };
+        advance();
+        stepTimer = setInterval(() => {
+          if (cur < stepEls.length) advance();
+        }, 6000);
+      }
+      function stopWorking() {
+        clearInterval(workTimer);
+        clearInterval(stepTimer);
+      }
+
+      /* ── Report + error ────────────────────────────── */
+      function showReport(question, answer, latency) {
+        const srcNote = latency != null ? `${latency.toFixed(1)}s` : "";
+        region.innerHTML = `
+    <div class="report">
+      <div class="rhead">
+        <span class="title">Scouting report</span>
+        <span class="meta">${srcNote}${srcNote ? " · " : ""}local model</span>
+      </div>
+      <div class="rbrief">Brief: <b>${esc(question)}</b></div>
+      <div class="rbody">${renderAnswer(answer)}</div>
+    </div>`;
+      }
+      function showError(question, message) {
+        region.innerHTML = `
+    <div class="report error">
+      <div class="rhead"><span class="title">Report failed</span></div>
+      <div class="rbrief">Brief: <b>${esc(question)}</b></div>
+      <div class="rbody"><p>${esc(message)}</p><p>Check that the API and Ollama are both running, then send the brief again.</p></div>
+    </div>`;
+      }
+
+      /* ── Submit ────────────────────────────────────── */
+      let busy = false;
+      function setBusy(b) {
+        busy = b;
+        sendEl.disabled = b;
+        sendEl.firstChild.textContent = b ? "Working " : "Scout ";
+        [...chips.children].forEach((c) => (c.disabled = b));
+      }
+
+      async function ask(question) {
+        question = (question || "").trim();
+        if (!question || busy) return;
+        setBusy(true);
+        showWorking();
+        try {
+          const r = await fetch(API + "/query", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question }),
+          });
+          if (!r.ok) {
+            let detail = `The desk returned an error (${r.status}).`;
+            try {
+              const e = await r.json();
+              if (e.detail)
+                detail = typeof e.detail === "string" ? e.detail : detail;
+            } catch (_) {}
+            throw new Error(detail);
+          }
+          const d = await r.json();
+          stopWorking();
+          showReport(question, d.answer, d.latency_s);
+        } catch (err) {
+          stopWorking();
+          const msg =
+            err.message && err.message !== "Failed to fetch"
+              ? err.message
+              : "Couldn't reach the scouting desk.";
+          showError(question, msg);
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      sendEl.addEventListener("click", () => ask(qEl.value));
+      qEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          ask(qEl.value);
+        }
+      });
+      chips.addEventListener("click", (e) => {
+        const c = e.target.closest(".chip");
+        if (!c || busy) return;
+        qEl.value = c.textContent.trim();
+        autosize();
+        ask(qEl.value);
+      });
+
+      checkHealth();
+    </script>
+  </body>
+</html>

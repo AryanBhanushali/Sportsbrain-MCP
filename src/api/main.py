@@ -1,8 +1,10 @@
 """
 FastAPI endpoints for SportsBrain.
-Serves the scouting agent via REST API.
+Serves the scouting agent via a REST API and a browser UI for non-technical users.
 
 Run locally: uvicorn src.api.main:app --reload
+  UI:  http://localhost:8000/
+  API: POST http://localhost:8000/query  {"question": "..."}
 """
 
 import os
@@ -16,10 +18,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from src.agent.graph import build_agent, run_query
 from src.cache.redis_client import get_cache_stats
+
+# static/ lives at the project root (same level as src/, data/)
+STATIC_DIR = Path(__file__).parent.parent.parent / "static"
 
 app = FastAPI(
     title="SportsBrain",
@@ -43,6 +49,12 @@ class QueryRequest(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     latency_s: float
+
+
+@app.get("/")
+def index():
+    """Serve the scouting-desk UI."""
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 @app.get("/health")
