@@ -1,2 +1,108 @@
-# Kubernetes deployment manifest — Week 7
-# App + Redis Deployments
+# Kubernetes Deployments — SportsBrain (Week 7)
+# Two workloads: the FastAPI app and a Redis cache.
+# The app image is pulled from ECR. The eksctl-managed node group's IAM role
+# includes AmazonEC2ContainerRegistryReadOnly, so no imagePullSecret is needed.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sportsbrain-app
+  labels:
+    app: sportsbrain
+    component: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sportsbrain
+      component: api
+  template:
+    metadata:
+      labels:
+        app: sportsbrain
+        component: api
+    spec:
+      containers:
+        - name: app
+          image: 496043250206.dkr.ecr.us-east-1.amazonaws.com/sportsbrain:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          # Non-secret config comes from the ConfigMap...
+          envFrom:
+            - configMapRef:
+                name: sportsbrain-config
+          # ...and the LangSmith key is injected from the Secret.
+          env:
+            - name: LANGCHAIN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sportsbrain-secrets
+                  key: LANGCHAIN_API_KEY
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+          # The app imports langchain/langgraph/pandas at startup, which can
+          # take a while on a small node — startupProbe gives up to 5 minutes
+          # before liveness kicks in, so a slow boot won't cause a crash loop.
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: sportsbrain
+    component: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sportsbrain
+      component: cache
+  template:
+    metadata:
+      labels:
+        app: sportsbrain
+        component: cache
+    spec:
+      containers:
+        - name: redis
+          image: redis:8-alpine
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          livenessProbe:
+            exec:
+              command: ["redis-cli", "ping"]
+            initialDelaySeconds: 10
+            periodSeconds: 15

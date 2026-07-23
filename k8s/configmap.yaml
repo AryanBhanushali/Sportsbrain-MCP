@@ -1,2 +1,20 @@
-# Kubernetes ConfigMap — Week 7
-# Non-secret config: OLLAMA_BASE_URL, REDIS_URL, etc.
+# Kubernetes ConfigMap — SportsBrain (Week 7)
+# Non-secret configuration, injected into the app as environment variables.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sportsbrain-config
+  labels:
+    app: sportsbrain
+data:
+  REDIS_URL: "redis://redis:6379"
+  OLLAMA_MODEL: "qwen3:8b"
+  # There is no Ollama in-cluster (it needs a GPU). The ChatOllama client is
+  # constructed lazily, so startup and /health succeed against this placeholder;
+  # only /query would require a real GPU/cloud LLM backend behind this URL.
+  OLLAMA_BASE_URL: "http://ollama-not-deployed:11434"
+  # Tracing is off for the deploy proof — no queries run here, so no traces
+  # would fire anyway. In production this is "true" and the app reads the
+  # LangSmith key injected from the Secret.
+  LANGCHAIN_TRACING_V2: "false"
+  LANGCHAIN_PROJECT: "sportsbrain"

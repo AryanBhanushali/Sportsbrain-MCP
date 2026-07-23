@@ -1,0 +1,30 @@
+# Virtual environment
+.venv/
+venv/
+
+# Secrets
+.env
+
+# Git
+.git/
+.gitignore
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Raw source data
+data/raw/
+
+# Local-only compose override
+docker-compose.override.yml

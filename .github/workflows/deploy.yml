@@ -1,2 +1,68 @@
-# GitHub Actions CI/CD pipeline — Week 7
-# Build → Push to AWS ECR → Deploy to EKS
+# ─────────────────────────────────────────────────────────────────────────────
+# SportsBrain — CI/CD pipeline (build → push to ECR → roll out to EKS)
+#
+# DEMONSTRATION CONFIG. This workflow documents the full production deploy
+# pipeline but is set to run ONLY on manual dispatch (workflow_dispatch), so it
+# never fires automatically and never touches AWS on its own. The AWS account
+# used during development has been torn down to $0, so this is a reviewable
+# artifact of the pipeline, not a live deployment.
+#
+# TO MAKE IT LIVE:
+#   1. Change the trigger below to:   on: { push: { branches: [main] } }
+#   2. Recreate the ECR repo and EKS cluster.
+#   3. Add these GitHub repo secrets (Settings → Secrets and variables → Actions):
+#        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Deploy to EKS
+
+on:
+  workflow_dispatch: {} # manual-only; see header note
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: sportsbrain
+  EKS_CLUSTER: sportsbrain
+  DEPLOYMENT: sportsbrain-app
+  CONTAINER: app
+
+jobs:
+  build-and-deploy:
+    name: Build image and roll out to EKS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to ECR
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" -t "$REGISTRY/$ECR_REPOSITORY:latest" .
+          docker push "$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$REGISTRY/$ECR_REPOSITORY:latest"
+
+      - name: Update kubeconfig for the EKS cluster
+        run: aws eks update-kubeconfig --name "$EKS_CLUSTER" --region "$AWS_REGION"
+
+      - name: Roll out the new image
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          kubectl set image deployment/"$DEPLOYMENT" \
+            "$CONTAINER=$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          kubectl rollout status deployment/"$DEPLOYMENT" --timeout=180s
