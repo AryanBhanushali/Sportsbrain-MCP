@@ -1,9 +1,11 @@
 """
-Generates a 200-question golden test set from actual database data.
+Generates a 163-question golden test set from actual database data.
 Each question has a known ground truth answer from the DB.
 
 Run: python scripts/generate_golden_set.py
-Output: evaluation/golden_test_set.json
+Output: <project_root>/evaluation/golden_test_set.json
+
+Deterministic (fixed random seed) — same questions every run.
 """
 
 import sys
@@ -12,10 +14,13 @@ import random
 import sqlite3
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# ── Absolute paths anchored to the project root ───────────────────────
+# scripts/ lives directly under the project root, so parent.parent is root.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
-DB_PATH = Path("data/sportsbrain.db")
-OUTPUT = Path("evaluation/golden_test_set.json")
+DB_PATH = PROJECT_ROOT / "data" / "sportsbrain.db"
+OUTPUT = PROJECT_ROOT / "evaluation" / "golden_test_set.json"
 
 random.seed(42)
 
@@ -289,6 +294,11 @@ def generate_edge_cases(count=10):
 
 
 def main():
+    if not DB_PATH.exists():
+        print(f"ERROR: database not found at {DB_PATH}")
+        print("Load it first: python scripts/load_data.py --all")
+        sys.exit(1)
+
     conn = db()
     all_questions = []
 
@@ -326,12 +336,12 @@ def main():
     for i, q in enumerate(all_questions):
         q["id"] = i + 1
 
-    # Save
+    # Save (ensure the evaluation/ directory exists)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT, "w", encoding="utf-8") as f:
         json.dump(all_questions, f, indent=2, ensure_ascii=False)
 
-    print(f"\nTotal: {len(all_questions)} questions → {OUTPUT}")
+    print(f"\nTotal: {len(all_questions)} questions -> {OUTPUT}")
 
     # Category summary
     cats = {}

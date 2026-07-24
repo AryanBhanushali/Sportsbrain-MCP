@@ -2,7 +2,7 @@
 Fires a set of diverse scouting queries to populate LangSmith with trace data.
 Run: python scripts/test_agent_traces.py
 
-After running, check smith.langchain.com → sportsbrain project to see:
+After running, check smith.langchain.com -> sportsbrain project to see:
   - Which tools were called per query
   - Latency per step (LLM call vs tool execution)
   - Token usage per run
@@ -10,6 +10,7 @@ After running, check smith.langchain.com → sportsbrain project to see:
 """
 
 import sys
+import asyncio
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -34,23 +35,26 @@ TEST_QUERIES = [
 ]
 
 
-def main():
-    print("Building agent...")
-    agent = build_agent()
+async def _amain():
+    print("Building agent (loading tools from MCP servers)...")
+    agent = await build_agent()
     print(f"Running {len(TEST_QUERIES)} test queries...\n")
 
     for i, query in enumerate(TEST_QUERIES, 1):
         print(f"[{i}/{len(TEST_QUERIES)}] {query}")
         try:
-            response = run_query(agent, query)
-            # Print first 150 chars of response as preview
+            response = await run_query(agent, query)
             preview = response[:150].replace("\n", " ")
-            print(f"  ✓ {preview}...")
+            print(f"  OK {preview}...")
         except Exception as e:
-            print(f"  ✗ Error: {e}")
+            print(f"  ERROR: {e}")
         print()
 
-    print("Done. Check smith.langchain.com → sportsbrain project for traces.")
+    print("Done. Check smith.langchain.com -> sportsbrain project for traces.")
+
+
+def main():
+    asyncio.run(_amain())
 
 
 if __name__ == "__main__":

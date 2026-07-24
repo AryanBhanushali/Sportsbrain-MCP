@@ -1,1 +1,980 @@
-[]
+[
+  {
+    "question": "How old is Ísak Jóhannesson?",
+    "ground_truth": "Ísak Jóhannesson is 22 years old, playing for Köln.",
+    "category": "player_stats_lookup",
+    "id": 1
+  },
+  {
+    "question": "What is Enzo Fernández's current market value?",
+    "ground_truth": "Enzo Fernández is currently valued at €85M (Elite (50-100M)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 2
+  },
+  {
+    "question": "How many goals does Vedat Muriqi have this season?",
+    "ground_truth": "Vedat Muriqi has 23 goals this season, playing for Mallorca in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 3
+  },
+  {
+    "question": "Give me Mason Greenwood's stats and market value.",
+    "ground_truth": "Mason Greenwood (Marseille): 16 goals, 7 assists. Valued at €50M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 4
+  },
+  {
+    "question": "How old is David Carmo?",
+    "ground_truth": "David Carmo is 26 years old, playing for Oviedo.",
+    "category": "player_stats_lookup",
+    "id": 5
+  },
+  {
+    "question": "What position does Fer López play?",
+    "ground_truth": "Fer López plays MF,FW for Celta Vigo.",
+    "category": "player_stats_lookup",
+    "id": 6
+  },
+  {
+    "question": "Who is the better scorer, Kylian Mbappé or Vedat Muriqi?",
+    "ground_truth": "Kylian Mbappé has 25 goals for Real Madrid, Vedat Muriqi has 23 goals for Mallorca.",
+    "category": "comparison",
+    "id": 7
+  },
+  {
+    "question": "How many goals does the goalkeeper Alisson have?",
+    "ground_truth": "Alisson is a goalkeeper; goalkeepers typically have 0 goals.",
+    "category": "edge_case",
+    "id": 8
+  },
+  {
+    "question": "What was Jude Bellingham's peak market value?",
+    "ground_truth": "Jude Bellingham's peak value was €180M at Real Madrid. Current: €160M.",
+    "category": "transfer_lookup",
+    "id": 9
+  },
+  {
+    "question": "What position does Víctor Chust play?",
+    "ground_truth": "Víctor Chust plays DF for Elche.",
+    "category": "player_stats_lookup",
+    "id": 10
+  },
+  {
+    "question": "What position does Gerard Martín play?",
+    "ground_truth": "Gerard Martín plays DF for Barcelona.",
+    "category": "player_stats_lookup",
+    "id": 11
+  },
+  {
+    "question": "What position does Yasin Ayari play?",
+    "ground_truth": "Yasin Ayari plays MF for Brighton.",
+    "category": "player_stats_lookup",
+    "id": 12
+  },
+  {
+    "question": "Is Alessandro Bastoni's market value rising or declining?",
+    "ground_truth": "Alessandro Bastoni's trajectory is 'growing'. Current: €80M, Peak: €80M at Inter Milan.",
+    "category": "transfer_lookup",
+    "id": 13
+  },
+  {
+    "question": "Give me Michael Olise's stats and market value.",
+    "ground_truth": "Michael Olise (Bayern Munich): 15 goals, 19 assists. Valued at €130M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 14
+  },
+  {
+    "question": "Is Alexander Isak's market value rising or declining?",
+    "ground_truth": "Alexander Isak's trajectory is 'growing'. Current: €120M, Peak: €140M at Liverpool FC.",
+    "category": "transfer_lookup",
+    "id": 15
+  },
+  {
+    "question": "Which team does Ilia Gruev play for?",
+    "ground_truth": "Ilia Gruev plays for Leeds United in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 16
+  },
+  {
+    "question": "Who are the top 3 scorers in Ligue 1 this season?",
+    "ground_truth": "The top 3 scorers in Ligue 1 are: Esteban Lepaul (20), Mason Greenwood (16), Joaquín Panichelli (16).",
+    "category": "search_query",
+    "id": 17
+  },
+  {
+    "question": "What was Achraf Hakimi's peak market value?",
+    "ground_truth": "Achraf Hakimi's peak value was €80M at Paris Saint-Germain. Current: €80M.",
+    "category": "transfer_lookup",
+    "id": 18
+  },
+  {
+    "question": "Compare Bruno Guimarães and Danny Welbeck this season.",
+    "ground_truth": "Bruno Guimarães (Newcastle United): 9 goals, 5 assists. Danny Welbeck (Brighton): 13 goals, 1 assists.",
+    "category": "comparison",
+    "id": 19
+  },
+  {
+    "question": "Is Dominik Szoboszlai's market value rising or declining?",
+    "ground_truth": "Dominik Szoboszlai's trajectory is 'growing'. Current: €85M, Peak: €85M at Liverpool FC.",
+    "category": "transfer_lookup",
+    "id": 20
+  },
+  {
+    "question": "Give me Joaquín Panichelli's stats and market value.",
+    "ground_truth": "Joaquín Panichelli (Strasbourg): 16 goals, 1 assists. Valued at €25M, trajectory: rising_star.",
+    "category": "multi_source",
+    "id": 21
+  },
+  {
+    "question": "How many goals does Ollie Watkins have this season?",
+    "ground_truth": "Ollie Watkins has 16 goals this season, playing for Aston Villa in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 22
+  },
+  {
+    "question": "Who are the top 3 scorers in La Liga this season?",
+    "ground_truth": "The top 3 scorers in La Liga are: Kylian Mbappé (25), Vedat Muriqi (23), Ante Budimir (17).",
+    "category": "search_query",
+    "id": 23
+  },
+  {
+    "question": "Is João Neves's market value rising or declining?",
+    "ground_truth": "João Neves's trajectory is 'rising_star'. Current: €110M, Peak: €110M at Paris Saint-Germain.",
+    "category": "transfer_lookup",
+    "id": 24
+  },
+  {
+    "question": "What was Hugo Ekitiké's peak market value?",
+    "ground_truth": "Hugo Ekitiké's peak value was €85M at Liverpool FC. Current: €85M.",
+    "category": "transfer_lookup",
+    "id": 25
+  },
+  {
+    "question": "What position does Omar El Hilali play?",
+    "ground_truth": "Omar El Hilali plays DF for Espanyol.",
+    "category": "player_stats_lookup",
+    "id": 26
+  },
+  {
+    "question": "What is Kylian Mbappé's current market value?",
+    "ground_truth": "Kylian Mbappé is currently valued at €200M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 27
+  },
+  {
+    "question": "Is Arda Güler's market value rising or declining?",
+    "ground_truth": "Arda Güler's trajectory is 'rising_star'. Current: €90M, Peak: €90M at Real Madrid.",
+    "category": "transfer_lookup",
+    "id": 28
+  },
+  {
+    "question": "What is Alexis Mac Allister's current market value?",
+    "ground_truth": "Alexis Mac Allister is currently valued at €85M (Elite (50-100M)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 29
+  },
+  {
+    "question": "Who are the best defenders in La Liga by goal contributions?",
+    "ground_truth": "Top defenders in La Liga by goal contributions: Federico Valverde (5G, 8A), Carlos Romero (6G, 3A), Germán Valera (4G, 5A).",
+    "category": "search_query",
+    "id": 30
+  },
+  {
+    "question": "How many goals does Esteban Lepaul have this season?",
+    "ground_truth": "Esteban Lepaul has 20 goals this season, playing for Rennes in the Ligue 1.",
+    "category": "player_stats_lookup",
+    "id": 31
+  },
+  {
+    "question": "What is Cole Palmer's current market value?",
+    "ground_truth": "Cole Palmer is currently valued at €120M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 32
+  },
+  {
+    "question": "Is Lamine Yamal's market value rising or declining?",
+    "ground_truth": "Lamine Yamal's trajectory is 'growing'. Current: €200M, Peak: €200M at FC Barcelona.",
+    "category": "transfer_lookup",
+    "id": 33
+  },
+  {
+    "question": "How many goals does Ferrán Torres have this season?",
+    "ground_truth": "Ferrán Torres has 16 goals this season, playing for Barcelona in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 34
+  },
+  {
+    "question": "Give me Serhou Guirassy's stats and market value.",
+    "ground_truth": "Serhou Guirassy (Dortmund): 17 goals, 1 assists. Valued at €40M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 35
+  },
+  {
+    "question": "What position does Zaid Romero play?",
+    "ground_truth": "Zaid Romero plays DF for Getafe.",
+    "category": "player_stats_lookup",
+    "id": 36
+  },
+  {
+    "question": "Is Estêvão's market value rising or declining?",
+    "ground_truth": "Estêvão's trajectory is 'rising_star'. Current: €80M, Peak: €80M at Chelsea FC.",
+    "category": "transfer_lookup",
+    "id": 37
+  },
+  {
+    "question": "Compare Dominic Calvert-Lewin and Zian Flemming this season.",
+    "ground_truth": "Dominic Calvert-Lewin (Leeds United): 14 goals, 1 assists. Zian Flemming (Burnley): 11 goals, 0 assists.",
+    "category": "comparison",
+    "id": 38
+  },
+  {
+    "question": "How many goals does Ante Budimir have this season?",
+    "ground_truth": "Ante Budimir has 17 goals this season, playing for Osasuna in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 39
+  },
+  {
+    "question": "What position does Robin Gosens play?",
+    "ground_truth": "Robin Gosens plays DF,MF for Fiorentina.",
+    "category": "player_stats_lookup",
+    "id": 40
+  },
+  {
+    "question": "How old is Louis Oppie?",
+    "ground_truth": "Louis Oppie is 23 years old, playing for St Pauli.",
+    "category": "player_stats_lookup",
+    "id": 41
+  },
+  {
+    "question": "What position does Ellyes Skhiri play?",
+    "ground_truth": "Ellyes Skhiri plays MF,DF for Eintracht Frankfurt.",
+    "category": "player_stats_lookup",
+    "id": 42
+  },
+  {
+    "question": "Give me Mikel Oyarzabal's stats and market value.",
+    "ground_truth": "Mikel Oyarzabal (Real Sociedad): 15 goals, 4 assists. Valued at €25M, trajectory: falling_sharply.",
+    "category": "multi_source",
+    "id": 43
+  },
+  {
+    "question": "Give me Erling Haaland's stats and market value.",
+    "ground_truth": "Erling Haaland (Manchester City): 27 goals, 8 assists. Valued at €200M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 44
+  },
+  {
+    "question": "How many goals does João Pedro have this season?",
+    "ground_truth": "João Pedro has 15 goals this season, playing for Chelsea in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 45
+  },
+  {
+    "question": "Who are the best midfielders in La Liga by goal contributions?",
+    "ground_truth": "Top midfielders in La Liga by goal contributions: Lamine Yamal (16G, 11A), Vinicius Júnior (16G, 5A), Abde Ezzalzouli (10G, 8A).",
+    "category": "search_query",
+    "id": 46
+  },
+  {
+    "question": "What was Pau Cubarsí's peak market value?",
+    "ground_truth": "Pau Cubarsí's peak value was €80M at FC Barcelona. Current: €80M.",
+    "category": "transfer_lookup",
+    "id": 47
+  },
+  {
+    "question": "What is Vitinha's current market value?",
+    "ground_truth": "Vitinha is currently valued at €110M (World Class (100M+)). Trajectory: rising_star.",
+    "category": "transfer_lookup",
+    "id": 48
+  },
+  {
+    "question": "How many goals does Dominic Calvert-Lewin have this season?",
+    "ground_truth": "Dominic Calvert-Lewin has 14 goals this season, playing for Leeds United in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 49
+  },
+  {
+    "question": "How old is Carlens Arcus?",
+    "ground_truth": "Carlens Arcus is 29 years old, playing for Angers.",
+    "category": "player_stats_lookup",
+    "id": 50
+  },
+  {
+    "question": "Who are the top 3 scorers in Premier League this season?",
+    "ground_truth": "The top 3 scorers in Premier League are: Erling Haaland (27), Igor Thiago (22), Ollie Watkins (16).",
+    "category": "search_query",
+    "id": 51
+  },
+  {
+    "question": "How many goals does Morgan Gibbs-White have this season?",
+    "ground_truth": "Morgan Gibbs-White has 15 goals this season, playing for Nottingham Forest in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 52
+  },
+  {
+    "question": "How many goals does Borja Iglesias have this season?",
+    "ground_truth": "Borja Iglesias has 14 goals this season, playing for Celta Vigo in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 53
+  },
+  {
+    "question": "Who are the best defenders in Serie A by goal contributions?",
+    "ground_truth": "Top defenders in Serie A by goal contributions: Gleison Bremer (4G, 3A), Andrea Cambiaso (3G, 4A), Pierre Kalulu (2G, 4A).",
+    "category": "search_query",
+    "id": 54
+  },
+  {
+    "question": "What was Raphinha's peak market value?",
+    "ground_truth": "Raphinha's peak value was €90M at FC Barcelona. Current: €80M.",
+    "category": "transfer_lookup",
+    "id": 55
+  },
+  {
+    "question": "Give me João Pedro's stats and market value.",
+    "ground_truth": "João Pedro (Chelsea): 15 goals, 5 assists. Valued at €65M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 56
+  },
+  {
+    "question": "Give me Kylian Mbappé's stats and market value.",
+    "ground_truth": "Kylian Mbappé (Real Madrid): 25 goals, 5 assists. Valued at €200M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 57
+  },
+  {
+    "question": "What position does Sebastiano Esposito play?",
+    "ground_truth": "Sebastiano Esposito plays FW,MF for Cagliari.",
+    "category": "player_stats_lookup",
+    "id": 58
+  },
+  {
+    "question": "How many goals does Eli Junior Kroupi have this season?",
+    "ground_truth": "Eli Junior Kroupi has 13 goals this season, playing for Bournemouth in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 59
+  },
+  {
+    "question": "Is Bukayo Saka's market value rising or declining?",
+    "ground_truth": "Bukayo Saka's trajectory is 'growing'. Current: €130M, Peak: €150M at Arsenal FC.",
+    "category": "transfer_lookup",
+    "id": 60
+  },
+  {
+    "question": "Compare Eli Junior Kroupi and Igor Thiago this season.",
+    "ground_truth": "Eli Junior Kroupi (Bournemouth): 13 goals, 0 assists. Igor Thiago (Brentford): 22 goals, 1 assists.",
+    "category": "comparison",
+    "id": 61
+  },
+  {
+    "question": "What is Michael Olise's current market value?",
+    "ground_truth": "Michael Olise is currently valued at €130M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 62
+  },
+  {
+    "question": "Give me Deniz Undav's stats and market value.",
+    "ground_truth": "Deniz Undav (Stuttgart): 19 goals, 7 assists. Valued at €20M, trajectory: stable.",
+    "category": "multi_source",
+    "id": 63
+  },
+  {
+    "question": "Who are the best midfielders in Ligue 1 by goal contributions?",
+    "ground_truth": "Top midfielders in Ligue 1 by goal contributions: Mason Greenwood (16G, 7A), Florian Thauvin (11G, 6A), Lassine Sinayoko (12G, 4A).",
+    "category": "search_query",
+    "id": 64
+  },
+  {
+    "question": "Who are the highest-scoring players under 21 across all Big 5 leagues?",
+    "ground_truth": "Top scorers under 21 across Big 5 leagues: Lamine Yamal (La Liga, 16 goals), Eli Junior Kroupi (Premier League, 13 goals), Said El Mala (Bundesliga, 13 goals), Yan Diomandé (Bundesliga, 12 goals), Nicolás Paz (Serie A, 12 goals).",
+    "category": "search_query",
+    "id": 65
+  },
+  {
+    "question": "What position does Jack Hinshelwood play?",
+    "ground_truth": "Jack Hinshelwood plays MF for Brighton.",
+    "category": "player_stats_lookup",
+    "id": 66
+  },
+  {
+    "question": "What is Ryan Gravenberch's current market value?",
+    "ground_truth": "Ryan Gravenberch is currently valued at €90M (Elite (50-100M)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 67
+  },
+  {
+    "question": "Which Premier League player has exactly 7 goals?",
+    "ground_truth": "Look up players with exactly 7 goals in the database.",
+    "category": "edge_case",
+    "id": 68
+  },
+  {
+    "question": "Compare Jean-Philippe Mateta and Zian Flemming this season.",
+    "ground_truth": "Jean-Philippe Mateta (Crystal Palace): 12 goals, 0 assists. Zian Flemming (Burnley): 11 goals, 0 assists.",
+    "category": "comparison",
+    "id": 69
+  },
+  {
+    "question": "What position does Niccolò Pisilli play?",
+    "ground_truth": "Niccolò Pisilli plays MF for Roma.",
+    "category": "player_stats_lookup",
+    "id": 70
+  },
+  {
+    "question": "How many goals does Lamine Yamal have this season?",
+    "ground_truth": "Lamine Yamal has 16 goals this season, playing for Barcelona in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 71
+  },
+  {
+    "question": "Which Ligue 1 players under 23 have scored 5 or more goals?",
+    "ground_truth": "Young Ligue 1 scorers with 5+ goals include: Mason Greenwood (16 goals, age 23), Joaquín Panichelli (16 goals, age 22), Bradley Barcola (11 goals, age 22).",
+    "category": "search_query",
+    "id": 72
+  },
+  {
+    "question": "How old is Melvin Bard?",
+    "ground_truth": "Melvin Bard is 24 years old, playing for Nice.",
+    "category": "player_stats_lookup",
+    "id": 73
+  },
+  {
+    "question": "Who are the best forwards in Serie A by goal contributions?",
+    "ground_truth": "Top forwards in Serie A by goal contributions: Lautaro Martínez (17G, 6A), Marcus Thuram (13G, 6A), Rasmus Højlund (12G, 5A).",
+    "category": "search_query",
+    "id": 74
+  },
+  {
+    "question": "What is Aurélien Tchouaméni's current market value?",
+    "ground_truth": "Aurélien Tchouaméni is currently valued at €75M (Elite (50-100M)). Trajectory: stable.",
+    "category": "transfer_lookup",
+    "id": 75
+  },
+  {
+    "question": "How many goals does Erling Haaland have this season?",
+    "ground_truth": "Erling Haaland has 27 goals this season, playing for Manchester City in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 76
+  },
+  {
+    "question": "Compare Jarrod Bowen and João Pedro this season.",
+    "ground_truth": "Jarrod Bowen (West Ham United): 9 goals, 11 assists. João Pedro (Chelsea): 15 goals, 5 assists.",
+    "category": "comparison",
+    "id": 77
+  },
+  {
+    "question": "What was Khvicha Kvaratskhelia's peak market value?",
+    "ground_truth": "Khvicha Kvaratskhelia's peak value was €90M at Paris Saint-Germain. Current: €90M.",
+    "category": "transfer_lookup",
+    "id": 78
+  },
+  {
+    "question": "Who are the best midfielders in Premier League by goal contributions?",
+    "ground_truth": "Top midfielders in Premier League by goal contributions: Bruno Fernandes (9G, 21A), Jarrod Bowen (9G, 11A), João Pedro (15G, 5A).",
+    "category": "search_query",
+    "id": 79
+  },
+  {
+    "question": "Which team does Federico Bonazzoli play for?",
+    "ground_truth": "Federico Bonazzoli plays for Cremonese in the Serie A.",
+    "category": "player_stats_lookup",
+    "id": 80
+  },
+  {
+    "question": "What was Jamal Musiala's peak market value?",
+    "ground_truth": "Jamal Musiala's peak value was €140M at Bayern Munich. Current: €130M.",
+    "category": "transfer_lookup",
+    "id": 81
+  },
+  {
+    "question": "Give me Lamine Yamal's stats and market value.",
+    "ground_truth": "Lamine Yamal (Barcelona): 16 goals, 11 assists. Valued at €200M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 82
+  },
+  {
+    "question": "Compare Matheus Cunha and Morgan Rogers this season.",
+    "ground_truth": "Matheus Cunha (Manchester Utd): 10 goals, 2 assists. Morgan Rogers (Aston Villa): 10 goals, 6 assists.",
+    "category": "comparison",
+    "id": 83
+  },
+  {
+    "question": "How old is Berat Djimsiti?",
+    "ground_truth": "Berat Djimsiti is 32 years old, playing for Atalanta.",
+    "category": "player_stats_lookup",
+    "id": 84
+  },
+  {
+    "question": "What is the market value of a random League Two player?",
+    "ground_truth": "Transfer data only covers Big 5 league players. No data available.",
+    "category": "edge_case",
+    "id": 85
+  },
+  {
+    "question": "Compare Casemiro and Cole Palmer this season.",
+    "ground_truth": "Casemiro (Manchester Utd): 9 goals, 2 assists. Cole Palmer (Chelsea): 10 goals, 1 assists.",
+    "category": "comparison",
+    "id": 86
+  },
+  {
+    "question": "How many goals does Igor Thiago have this season?",
+    "ground_truth": "Igor Thiago has 22 goals this season, playing for Brentford in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 87
+  },
+  {
+    "question": "Who are the best midfielders in Bundesliga by goal contributions?",
+    "ground_truth": "Top midfielders in Bundesliga by goal contributions: Harry Kane (36G, 5A), Michael Olise (15G, 19A), Luis Díaz (15G, 14A).",
+    "category": "search_query",
+    "id": 88
+  },
+  {
+    "question": "How old is Amin Sarr?",
+    "ground_truth": "Amin Sarr is 24 years old, playing for Hellas Verona.",
+    "category": "player_stats_lookup",
+    "id": 89
+  },
+  {
+    "question": "Who are the top 3 scorers in Bundesliga this season?",
+    "ground_truth": "The top 3 scorers in Bundesliga are: Harry Kane (36), Deniz Undav (19), Serhou Guirassy (17).",
+    "category": "search_query",
+    "id": 90
+  },
+  {
+    "question": "Find me defenders who score goals in Ligue 1.",
+    "ground_truth": "Search for DF position in Ligue 1 with goals > 0.",
+    "category": "edge_case",
+    "id": 91
+  },
+  {
+    "question": "What was Kenan Yıldız's peak market value?",
+    "ground_truth": "Kenan Yıldız's peak value was €75M at Juventus FC. Current: €75M.",
+    "category": "transfer_lookup",
+    "id": 92
+  },
+  {
+    "question": "How old is Danilho Doekhi?",
+    "ground_truth": "Danilho Doekhi is 27 years old, playing for Union Berlin.",
+    "category": "player_stats_lookup",
+    "id": 93
+  },
+  {
+    "question": "How old is Alberto Paleari?",
+    "ground_truth": "Alberto Paleari is 32 years old, playing for Torino.",
+    "category": "player_stats_lookup",
+    "id": 94
+  },
+  {
+    "question": "Give me Patrik Schick's stats and market value.",
+    "ground_truth": "Patrik Schick (Leverkusen): 16 goals, 3 assists. Valued at €25M, trajectory: declining.",
+    "category": "multi_source",
+    "id": 95
+  },
+  {
+    "question": "Who are the best defenders in Ligue 1 by goal contributions?",
+    "ground_truth": "Top defenders in Ligue 1 by goal contributions: Nuno Mendes (4G, 5A), Guela Doué (2G, 6A), Matthieu Udol (1G, 7A).",
+    "category": "search_query",
+    "id": 96
+  },
+  {
+    "question": "What was Phil Foden's peak market value?",
+    "ground_truth": "Phil Foden's peak value was €150M at Manchester City. Current: €80M.",
+    "category": "transfer_lookup",
+    "id": 97
+  },
+  {
+    "question": "Is Federico Valverde's market value rising or declining?",
+    "ground_truth": "Federico Valverde's trajectory is 'growing'. Current: €120M, Peak: €130M at Real Madrid.",
+    "category": "transfer_lookup",
+    "id": 98
+  },
+  {
+    "question": "What is Erling Haaland's transfer history?",
+    "ground_truth": "Haaland's value history is available from Transfermarkt data.",
+    "category": "edge_case",
+    "id": 99
+  },
+  {
+    "question": "Compare Hugo Ekitike and Morgan Gibbs-White this season.",
+    "ground_truth": "Hugo Ekitike (Liverpool): 11 goals, 4 assists. Morgan Gibbs-White (Nottingham Forest): 15 goals, 4 assists.",
+    "category": "comparison",
+    "id": 100
+  },
+  {
+    "question": "How many goals does Marcus Thuram have this season?",
+    "ground_truth": "Marcus Thuram has 13 goals this season, playing for Inter in the Serie A.",
+    "category": "player_stats_lookup",
+    "id": 101
+  },
+  {
+    "question": "Give me Harry Kane's stats and market value.",
+    "ground_truth": "Harry Kane (Bayern Munich): 36 goals, 5 assists. Valued at €65M, trajectory: declining.",
+    "category": "multi_source",
+    "id": 102
+  },
+  {
+    "question": "How many goals does Viktor Gyökeres have this season?",
+    "ground_truth": "Viktor Gyökeres has 14 goals this season, playing for Arsenal in the Premier League.",
+    "category": "player_stats_lookup",
+    "id": 103
+  },
+  {
+    "question": "Is Julián Alvarez's market value rising or declining?",
+    "ground_truth": "Julián Alvarez's trajectory is 'growing'. Current: €100M, Peak: €100M at Atlético de Madrid.",
+    "category": "transfer_lookup",
+    "id": 104
+  },
+  {
+    "question": "How many goals does Vinicius Júnior have this season?",
+    "ground_truth": "Vinicius Júnior has 16 goals this season, playing for Real Madrid in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 105
+  },
+  {
+    "question": "Which Serie A players under 23 have scored 5 or more goals?",
+    "ground_truth": "Young Serie A scorers with 5+ goals include: Rasmus Højlund (12 goals, age 22), Nicolás Paz (12 goals, age 20), Kenan Yıldız (10 goals, age 20).",
+    "category": "search_query",
+    "id": 106
+  },
+  {
+    "question": "Who are the best midfielders in Serie A by goal contributions?",
+    "ground_truth": "Top midfielders in Serie A by goal contributions: Federico Dimarco (7G, 16A), Nicolás Paz (12G, 6A), Kenan Yıldız (10G, 6A).",
+    "category": "search_query",
+    "id": 107
+  },
+  {
+    "question": "Compare Eli Junior Kroupi and Enzo Fernández this season.",
+    "ground_truth": "Eli Junior Kroupi (Bournemouth): 13 goals, 0 assists. Enzo Fernández (Chelsea): 10 goals, 4 assists.",
+    "category": "comparison",
+    "id": 108
+  },
+  {
+    "question": "What position does Arkadiusz Pyrka play?",
+    "ground_truth": "Arkadiusz Pyrka plays MF for St Pauli.",
+    "category": "player_stats_lookup",
+    "id": 109
+  },
+  {
+    "question": "How old is Loïc Bade?",
+    "ground_truth": "Loïc Bade is 25 years old, playing for Leverkusen.",
+    "category": "player_stats_lookup",
+    "id": 110
+  },
+  {
+    "question": "How old is Nico Schlotterbeck?",
+    "ground_truth": "Nico Schlotterbeck is 25 years old, playing for Dortmund.",
+    "category": "player_stats_lookup",
+    "id": 111
+  },
+  {
+    "question": "Compare Eli Junior Kroupi and Morgan Rogers this season.",
+    "ground_truth": "Eli Junior Kroupi (Bournemouth): 13 goals, 0 assists. Morgan Rogers (Aston Villa): 10 goals, 6 assists.",
+    "category": "comparison",
+    "id": 112
+  },
+  {
+    "question": "Compare Ollie Watkins and Raúl Jiménez this season.",
+    "ground_truth": "Ollie Watkins (Aston Villa): 16 goals, 3 assists. Raúl Jiménez (Fulham): 9 goals, 3 assists.",
+    "category": "comparison",
+    "id": 113
+  },
+  {
+    "question": "Who are the oldest players still playing in Serie A?",
+    "ground_truth": "Search Serie A players sorted by age descending.",
+    "category": "edge_case",
+    "id": 114
+  },
+  {
+    "question": "Give me Lautaro Martínez's stats and market value.",
+    "ground_truth": "Lautaro Martínez (Inter): 17 goals, 6 assists. Valued at €85M, trajectory: stable.",
+    "category": "multi_source",
+    "id": 115
+  },
+  {
+    "question": "Compare Danny Welbeck and Ollie Watkins this season.",
+    "ground_truth": "Danny Welbeck (Brighton): 13 goals, 1 assists. Ollie Watkins (Aston Villa): 16 goals, 3 assists.",
+    "category": "comparison",
+    "id": 116
+  },
+  {
+    "question": "Who is the better scorer, Harry Kane or Erling Haaland?",
+    "ground_truth": "Harry Kane has 36 goals for Bayern Munich, Erling Haaland has 27 goals for Manchester City.",
+    "category": "comparison",
+    "id": 117
+  },
+  {
+    "question": "Who scored the most goals in the Championship?",
+    "ground_truth": "Data only covers Big 5 European leagues. No Championship data.",
+    "category": "edge_case",
+    "id": 118
+  },
+  {
+    "question": "What is Ousmane Dembélé's current market value?",
+    "ground_truth": "Ousmane Dembélé is currently valued at €100M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 119
+  },
+  {
+    "question": "What position does Malik Tillman play?",
+    "ground_truth": "Malik Tillman plays MF for Leverkusen.",
+    "category": "player_stats_lookup",
+    "id": 120
+  },
+  {
+    "question": "How many goals does Anastasios Douvikas have this season?",
+    "ground_truth": "Anastasios Douvikas has 14 goals this season, playing for Como in the Serie A.",
+    "category": "player_stats_lookup",
+    "id": 121
+  },
+  {
+    "question": "How old is Marcos Senesi?",
+    "ground_truth": "Marcos Senesi is 28 years old, playing for Bournemouth.",
+    "category": "player_stats_lookup",
+    "id": 122
+  },
+  {
+    "question": "Give me Luis Díaz's stats and market value.",
+    "ground_truth": "Luis Díaz (Bayern Munich): 15 goals, 14 assists. Valued at €70M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 123
+  },
+  {
+    "question": "Who is the better scorer, Serhou Guirassy or Lautaro Martínez?",
+    "ground_truth": "Serhou Guirassy has 17 goals for Dortmund, Lautaro Martínez has 17 goals for Inter.",
+    "category": "comparison",
+    "id": 124
+  },
+  {
+    "question": "Is Vinicius Junior's market value rising or declining?",
+    "ground_truth": "Vinicius Junior's trajectory is 'stable'. Current: €150M, Peak: €200M at Real Madrid.",
+    "category": "transfer_lookup",
+    "id": 125
+  },
+  {
+    "question": "What was Bruno Guimarães's peak market value?",
+    "ground_truth": "Bruno Guimarães's peak value was €85M at Newcastle United. Current: €75M.",
+    "category": "transfer_lookup",
+    "id": 126
+  },
+  {
+    "question": "What is Nuno Mendes's current market value?",
+    "ground_truth": "Nuno Mendes is currently valued at €75M (Elite (50-100M)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 127
+  },
+  {
+    "question": "What was William Saliba's peak market value?",
+    "ground_truth": "William Saliba's peak value was €90M at Arsenal FC. Current: €90M.",
+    "category": "transfer_lookup",
+    "id": 128
+  },
+  {
+    "question": "Compare Beto and Richarlison this season.",
+    "ground_truth": "Beto (Everton): 9 goals, 1 assists. Richarlison (Tottenham Hotspur): 11 goals, 4 assists.",
+    "category": "comparison",
+    "id": 129
+  },
+  {
+    "question": "Compare Dominic Calvert-Lewin and Harry Wilson this season.",
+    "ground_truth": "Dominic Calvert-Lewin (Leeds United): 14 goals, 1 assists. Harry Wilson (Fulham): 10 goals, 7 assists.",
+    "category": "comparison",
+    "id": 130
+  },
+  {
+    "question": "Who is the better scorer, Igor Thiago or Esteban Lepaul?",
+    "ground_truth": "Igor Thiago has 22 goals for Brentford, Esteban Lepaul has 20 goals for Rennes.",
+    "category": "comparison",
+    "id": 131
+  },
+  {
+    "question": "Who are the best forwards in Premier League by goal contributions?",
+    "ground_truth": "Top forwards in Premier League by goal contributions: Erling Haaland (27G, 8A), Igor Thiago (22G, 1A), Jarrod Bowen (9G, 11A).",
+    "category": "search_query",
+    "id": 132
+  },
+  {
+    "question": "How many goals does Lautaro Martínez have this season?",
+    "ground_truth": "Lautaro Martínez has 17 goals this season, playing for Inter in the Serie A.",
+    "category": "player_stats_lookup",
+    "id": 133
+  },
+  {
+    "question": "Give me Morgan Gibbs-White's stats and market value.",
+    "ground_truth": "Morgan Gibbs-White (Nottingham Forest): 15 goals, 4 assists. Valued at €65M, trajectory: growing.",
+    "category": "multi_source",
+    "id": 134
+  },
+  {
+    "question": "Is Lautaro Martínez's market value rising or declining?",
+    "ground_truth": "Lautaro Martínez's trajectory is 'stable'. Current: €85M, Peak: €110M at Inter Milan.",
+    "category": "transfer_lookup",
+    "id": 135
+  },
+  {
+    "question": "Is Erling Haaland's market value rising or declining?",
+    "ground_truth": "Erling Haaland's trajectory is 'growing'. Current: €200M, Peak: €200M at Manchester City.",
+    "category": "transfer_lookup",
+    "id": 136
+  },
+  {
+    "question": "How many goals does Kylian Mbappé have this season?",
+    "ground_truth": "Kylian Mbappé has 25 goals this season, playing for Real Madrid in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 137
+  },
+  {
+    "question": "Find left-backs under 25 with 5+ assists in any league.",
+    "ground_truth": "Search for DF position players with assists >= 5 and age <= 25.",
+    "category": "edge_case",
+    "id": 138
+  },
+  {
+    "question": "How many goals does Mikel Oyarzabal have this season?",
+    "ground_truth": "Mikel Oyarzabal has 15 goals this season, playing for Real Sociedad in the La Liga.",
+    "category": "player_stats_lookup",
+    "id": 139
+  },
+  {
+    "question": "What is Pedri's current market value?",
+    "ground_truth": "Pedri is currently valued at €140M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 140
+  },
+  {
+    "question": "Who are the best defenders in Premier League by goal contributions?",
+    "ground_truth": "Top defenders in Premier League by goal contributions: Dominik Szoboszlai (6G, 7A), James Garner (2G, 7A), Nico O’Reilly (5G, 3A).",
+    "category": "search_query",
+    "id": 141
+  },
+  {
+    "question": "Who are the best forwards in Bundesliga by goal contributions?",
+    "ground_truth": "Top forwards in Bundesliga by goal contributions: Harry Kane (36G, 5A), Deniz Undav (19G, 7A), Yan Diomandé (12G, 8A).",
+    "category": "search_query",
+    "id": 142
+  },
+  {
+    "question": "Compare Messi and Ronaldo this season.",
+    "ground_truth": "Messi and Ronaldo are not in the Big 5 leagues 2025-2026 dataset.",
+    "category": "edge_case",
+    "id": 143
+  },
+  {
+    "question": "Compare Jarrod Bowen and Viktor Gyökeres this season.",
+    "ground_truth": "Jarrod Bowen (West Ham United): 9 goals, 11 assists. Viktor Gyökeres (Arsenal): 14 goals, 1 assists.",
+    "category": "comparison",
+    "id": 144
+  },
+  {
+    "question": "Tell me about a player named Xyznotreal.",
+    "ground_truth": "No player found matching that name.",
+    "category": "edge_case",
+    "id": 145
+  },
+  {
+    "question": "Who are the top 3 scorers in Serie A this season?",
+    "ground_truth": "The top 3 scorers in Serie A are: Lautaro Martínez (17), Anastasios Douvikas (14), Donyell Malen (14).",
+    "category": "search_query",
+    "id": 146
+  },
+  {
+    "question": "Who is the better scorer, Deniz Undav or Ante Budimir?",
+    "ground_truth": "Deniz Undav has 19 goals for Stuttgart, Ante Budimir has 17 goals for Osasuna.",
+    "category": "comparison",
+    "id": 147
+  },
+  {
+    "question": "How old is Lewis Dunk?",
+    "ground_truth": "Lewis Dunk is 33 years old, playing for Brighton.",
+    "category": "player_stats_lookup",
+    "id": 148
+  },
+  {
+    "question": "How many goals does Donyell Malen have this season?",
+    "ground_truth": "Donyell Malen has 14 goals this season, playing for Roma in the Serie A.",
+    "category": "player_stats_lookup",
+    "id": 149
+  },
+  {
+    "question": "Which Bundesliga players under 23 have scored 5 or more goals?",
+    "ground_truth": "Young Bundesliga scorers with 5+ goals include: Michael Olise (15 goals, age 23), Said El Mala (13 goals, age 18), Yan Diomandé (12 goals, age 18).",
+    "category": "search_query",
+    "id": 150
+  },
+  {
+    "question": "Which Premier League players under 23 have scored 5 or more goals?",
+    "ground_truth": "Young Premier League scorers with 5+ goals include: João Pedro (15 goals, age 23), Eli Junior Kroupi (13 goals, age 19), Hugo Ekitike (11 goals, age 23).",
+    "category": "search_query",
+    "id": 151
+  },
+  {
+    "question": "What is Declan Rice's current market value?",
+    "ground_truth": "Declan Rice is currently valued at €120M (World Class (100M+)). Trajectory: growing.",
+    "category": "transfer_lookup",
+    "id": 152
+  },
+  {
+    "question": "Is Moisés Caicedo's market value rising or declining?",
+    "ground_truth": "Moisés Caicedo's trajectory is 'rising_star'. Current: €110M, Peak: €110M at Chelsea FC.",
+    "category": "transfer_lookup",
+    "id": 153
+  },
+  {
+    "question": "What position does El Hadji Malick Diouf play?",
+    "ground_truth": "El Hadji Malick Diouf plays DF,MF for West Ham United.",
+    "category": "player_stats_lookup",
+    "id": 154
+  },
+  {
+    "question": "What is Florian Wirtz's current market value?",
+    "ground_truth": "Florian Wirtz is currently valued at €110M (World Class (100M+)). Trajectory: stable.",
+    "category": "transfer_lookup",
+    "id": 155
+  },
+  {
+    "question": "What is Bryan Mbeumo's current market value?",
+    "ground_truth": "Bryan Mbeumo is currently valued at €75M (Elite (50-100M)). Trajectory: rising_star.",
+    "category": "transfer_lookup",
+    "id": 156
+  },
+  {
+    "question": "Who are the best defenders in Bundesliga by goal contributions?",
+    "ground_truth": "Top defenders in Bundesliga by goal contributions: Konrad Laimer (3G, 9A), Maximilian Mittelstädt (6G, 4A), David Raum (3G, 7A).",
+    "category": "search_query",
+    "id": 157
+  },
+  {
+    "question": "Is Désiré Doué's market value rising or declining?",
+    "ground_truth": "Désiré Doué's trajectory is 'growing'. Current: €90M, Peak: €90M at Paris Saint-Germain.",
+    "category": "transfer_lookup",
+    "id": 158
+  },
+  {
+    "question": "How old is Chema?",
+    "ground_truth": "Chema is 20 years old, playing for Stuttgart.",
+    "category": "player_stats_lookup",
+    "id": 159
+  },
+  {
+    "question": "Who are the best forwards in La Liga by goal contributions?",
+    "ground_truth": "Top forwards in La Liga by goal contributions: Kylian Mbappé (25G, 5A), Lamine Yamal (16G, 11A), Vedat Muriqi (23G, 1A).",
+    "category": "search_query",
+    "id": 160
+  },
+  {
+    "question": "How many goals does Harry Kane have this season?",
+    "ground_truth": "Harry Kane has 36 goals this season, playing for Bayern Munich in the Bundesliga.",
+    "category": "player_stats_lookup",
+    "id": 161
+  },
+  {
+    "question": "Who are the best forwards in Ligue 1 by goal contributions?",
+    "ground_truth": "Top forwards in Ligue 1 by goal contributions: Esteban Lepaul (20G, 5A), Ludovic Ajorque (8G, 9A), Folarin Balogun (13G, 4A).",
+    "category": "search_query",
+    "id": 162
+  },
+  {
+    "question": "Which La Liga players under 23 have scored 5 or more goals?",
+    "ground_truth": "Young La Liga scorers with 5+ goals include: Lamine Yamal (16 goals, age 18), Carlos Espí (11 goals, age 20), Abde Ezzalzouli (10 goals, age 23).",
+    "category": "search_query",
+    "id": 163
+  }
+]

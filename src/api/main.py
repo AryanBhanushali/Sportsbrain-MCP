@@ -2,6 +2,9 @@
 FastAPI endpoints for SportsBrain.
 Serves the scouting agent via a REST API and a browser UI for non-technical users.
 
+The agent loads its tools from the three MCP servers (spawned as stdio
+subprocesses at startup), so the query path runs through the MCP protocol.
+
 Run locally: uvicorn src.api.main:app --reload
   UI:  http://localhost:8000/
   API: POST http://localhost:8000/query  {"question": "..."}
@@ -39,7 +42,8 @@ agent = None
 @app.on_event("startup")
 async def startup():
     global agent
-    agent = build_agent()
+    # build_agent() is async: it launches the MCP servers and loads their tools.
+    agent = await build_agent()
 
 
 class QueryRequest(BaseModel):
@@ -68,8 +72,8 @@ def health():
 
 
 @app.post("/query", response_model=QueryResponse)
-def query(req: QueryRequest):
+async def query(req: QueryRequest):
     start = time.time()
-    answer = run_query(agent, req.question)
+    answer = await run_query(agent, req.question)
     elapsed = round(time.time() - start, 2)
     return QueryResponse(answer=answer, latency_s=elapsed)

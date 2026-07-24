@@ -1,5 +1,5 @@
 # All dependencies, pinned to the exact versions verified working locally.
-# Single-file setup: runtime + evaluation together.
+# Runtime (agent + API + MCP) and evaluation together.
 
 # ── LLM / Agent ──
 langchain==1.3.14
@@ -10,6 +10,7 @@ langgraph==1.2.9
 
 # ── MCP ──
 mcp[cli]==1.28.1
+langchain-mcp-adapters==0.3.0
 
 # ── Data ──
 pandas==3.0.3
@@ -25,7 +26,12 @@ redis==8.0.1
 langsmith==0.10.6
 
 # ── Evaluation ──
+# RAGAS 0.4.3 eagerly imports a Vertex class from a langchain-community path
+# removed in 0.4.x; run_ragas.py registers a stand-in for that unused import so
+# RAGAS loads and runs with the local Ollama judge. langchain-google-vertexai
+# provides the real class where available.
 ragas==0.4.3
+langchain-google-vertexai==3.2.4
 huggingface-hub==1.24.0
 datasets==5.0.0
 
